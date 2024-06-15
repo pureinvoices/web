@@ -1,0 +1,30 @@
+---
+import "@/styles/globals.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Pure Invoices. Simple, direct, and effective. Invoicing done right"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="fm-anderson" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
