@@ -1,9 +1,107 @@
 ---
+import { db, Customers, Items, Invoices } from "astro:db";
 import Layout from "../layouts/Layout.astro";
+
+const customers = await db.select().from(Customers);
+const items = await db.select().from(Items);
+const invoices = await db.select().from(Invoices);
+
+interface TCustomer {
+  id: string;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TItem {
+  id: string;
+  sku: string;
+  name: string;
+  desc: string;
+  price: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TInvoice {
+  id: string;
+  number: string;
+  url: string;
+  customer: string;
+  date: Date;
+  dueDate: Date;
+  total: number;
+  invItems: TItem[];
+  createdAt: Date;
+  updatedAt: Date;
+}
 ---
 
 <Layout title="Pure Invoices">
   <main>
-    <h1>homepage</h1>
+    <div class="grid grid-cols-3">
+      <div class="bg-slate-100 p-5">
+        <h3 class="mb-4 text-center font-semibold">customers</h3>
+        {
+          customers.map((customer: TCustomer) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">{customer.name}</h1>
+                  <p>{customer.id}</p>
+                  <p>{customer.address}</p>
+                  <p>{customer.email}</p>
+                  <p>{customer.phone}</p>
+                  <p>{customer.createdAt}</p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="bg-slate-200 p-5">
+        <h3 class="mb-4 text-center font-semibold">invoices</h3>
+        {
+          invoices.map((invoice: TInvoice) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">
+                    {invoice.id} -{" "}
+                    <span class="font-normal">{invoice.number}</span>
+                  </h1>
+                  <p>{invoice.url}</p>
+                  <p>{invoice.customer}</p>
+                  <p>{invoice.date}</p>
+                  <p>Due: {invoice.dueDate}</p>
+                  <p>${invoice.total.toFixed(2)}</p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="bg-slate-300 p-5">
+        <h3 class="mb-4 text-center font-semibold">items</h3>
+        {
+          items.map((item: TItem) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">{item.name}</h1>
+                  <p>{item.id}</p>
+                  <p>{item.desc}</p>
+                  <p>${item.price.toFixed(2)}</p>
+                  <p>{item.sku}</p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </main>
 </Layout>
