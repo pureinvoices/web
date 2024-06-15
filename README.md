@@ -2,16 +2,6 @@
 
 Pure Invoices is designed to simplify your billing process. Simple, direct, and effective – invoicing done right. Learn more at [pureinvoices.com](https://pureinvoices.com).
 
-## Developer Information
-
-### Husky Pre-Commit Hooks
-
-We have Husky set up to enforce pre-commit checks. These checks ensure that code and branch name is properly formatted before being committed.
-
-### Commitlint
-
-We use [Commitlint](https://commitlint.js.org/) to enforce conventional commit messages. This ensures that our commit history is readable and that semantic versioning can be applied.
-
 ## MVP Features
 
 **1. User Authentication** 🛠️
