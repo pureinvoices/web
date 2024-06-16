@@ -1,7 +1,39 @@
 ---
+import { db, Items } from "astro:db";
 import Layout from "@/layouts/Layout.astro";
+
+const items = await db.select().from(Items);
+
+interface TItem {
+  id: string;
+  sku: string;
+  name: string;
+  desc: string;
+  price: number;
+  quantity?: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 ---
 
 <Layout title="Pure Invoices">
   <h1 class="font-semibold opacity-50">current: view-items</h1>
+  <div class="bg-slate-100 p-5">
+    <h3 class="mb-4 text-center font-semibold">items</h3>
+    {
+      items.map((item: TItem) => (
+        <div>
+          <ul>
+            <li class="mb-6">
+              <h1 class="font-bold">{item.name}</h1>
+              <p>{item.id}</p>
+              {item.desc && <p>{item.desc}</p>}
+              <p>${item.price.toFixed(2)}</p>
+              <p>{item.sku}</p>
+            </li>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
 </Layout>
