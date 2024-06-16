@@ -28,3 +28,18 @@ export interface TInvoiceForm {
   dueDate: string;
   invItems: Array<TItem>;
 }
+
+export interface InvoiceItemsProps {
+  items: TItem[];
+  setItems: React.Dispatch<React.SetStateAction<TItem[]>>;
+  availableItems: TItem[];
+}
+
+export const initialItemState: TItem = {
+  id: "",
+  sku: "",
+  name: "",
+  desc: "",
+  price: 0,
+  quantity: 0,
+};

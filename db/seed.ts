@@ -64,6 +64,7 @@ export default async function () {
           name: "32 - 55 TV Mount Installation",
           desc: "",
           price: 99.0,
+          quantity: 1,
         },
         {
           id: "SEEDRUvtSnfeM6h5",
@@ -71,6 +72,7 @@ export default async function () {
           name: "Cord Masking (Up to 4 ft)",
           desc: "",
           price: 49.0,
+          quantity: 2,
         },
       ],
     },
@@ -88,6 +90,7 @@ export default async function () {
           name: "76 - 85 TV Mount Installation",
           desc: "",
           price: 239.0,
+          quantity: 1,
         },
       ],
     },

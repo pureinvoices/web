@@ -1,25 +1,14 @@
 import { type ReactElement, useState, useEffect } from "react";
-import type { TInvoiceForm, TItem } from "./types";
+import { initialItemState, type TInvoiceForm, type TItem } from "./types";
 import { useForm } from "@tanstack/react-form";
 import { invoiceSchema } from "./validation/invoiceSchema";
 import Input from "./elements/Input";
-import { Input as ShadcnInput } from "@/components/ui/input";
 import SubmitButton from "./elements/SubmitButton";
-import { Button } from "@/components/ui/button";
-import { Plus, Trash2Icon } from "lucide-react";
-
-const initialItemState: TItem = {
-  id: "",
-  sku: "",
-  name: "",
-  desc: "",
-  price: 0,
-  quantity: 0,
-};
+import InvoiceItems from "./elements/InvoiceItems";
 
 export default function Invoice(): ReactElement {
   const [availableItems, setAvailableItems] = useState<Array<TItem>>([]);
-  const [items, setItems] = useState<TItem[]>([initialItemState]);
+  const [items, setItems] = useState<TItem[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   const form = useForm<TInvoiceForm>({
@@ -53,9 +42,7 @@ export default function Invoice(): ReactElement {
         const result = await response.json();
         console.log(result);
         setItems([initialItemState]);
-        setAvailableItems([initialItemState]);
         form.reset();
-
         // window.location.href = "/";
       } catch (error) {
         console.error("Failed to add invoice", error);
@@ -90,39 +77,6 @@ export default function Invoice(): ReactElement {
     calculateTotal();
   }, [items, availableItems]);
 
-  const handleItemChange = (
-    index: number,
-    key: keyof TItem,
-    value: string | number,
-  ) => {
-    console.log("item updated");
-    setItems((prevItems) =>
-      prevItems.map((item, i) => {
-        if (i === index) {
-          if (key === "id") {
-            const selectedItem = availableItems.find(
-              (availableItem) => availableItem.id === value,
-            );
-            if (selectedItem) {
-              return { ...selectedItem, quantity: item.quantity };
-            }
-          }
-          return { ...item, [key]: value };
-        }
-        console.log("item >> ", item);
-        return item;
-      }),
-    );
-  };
-
-  const addItem = () => {
-    setItems((prevItems) => [...prevItems, { ...initialItemState }]);
-  };
-
-  const removeItem = (index: number) => {
-    setItems((prevItems) => prevItems.filter((_, i) => i !== index));
-  };
-
   return (
     <div>
       <form
@@ -153,52 +107,11 @@ export default function Invoice(): ReactElement {
           label="Due Date"
           placeholder="Due Date"
         />
-
-        <div>
-          {items.map((item, index) => (
-            <div key={index} className="mb-3 flex gap-2">
-              <select
-                className="w-full border bg-gray-50 p-2"
-                value={item.id}
-                onChange={(e) => handleItemChange(index, "id", e.target.value)}
-              >
-                <option value="" disabled>
-                  Select an item
-                </option>
-                {availableItems.map((availableItem) => (
-                  <option key={availableItem.id} value={availableItem.id}>
-                    {availableItem.name}
-                  </option>
-                ))}
-              </select>
-
-              <ShadcnInput
-                className="w-1/4"
-                placeholder="Quantity"
-                type="number"
-                value={item.quantity}
-                onChange={(e) =>
-                  handleItemChange(index, "quantity", parseInt(e.target.value))
-                }
-              />
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => removeItem(index)}
-              >
-                <Trash2Icon size={22} />
-              </Button>
-            </div>
-          ))}
-          <Button
-            className="mb-3 pb-3"
-            variant="outline"
-            type="button"
-            onClick={addItem}
-          >
-            <Plus size={16} /> <span className="ml-1">Add item</span>
-          </Button>
-        </div>
+        <InvoiceItems
+          items={items}
+          setItems={setItems}
+          availableItems={availableItems}
+        />
         <SubmitButton
           form={form}
           title="Create Invoice"
