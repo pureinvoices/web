@@ -1,0 +1,126 @@
+---
+import { db, Customers, Items, Invoices } from "astro:db";
+import Layout from "../layouts/Layout.astro";
+import Customer from "@/components/forms/Customer";
+import Item from "@/components/forms/Item";
+import Invoice from "@/components/forms/Invoice";
+
+const customers = await db.select().from(Customers);
+const items = await db.select().from(Items);
+const invoices = await db.select().from(Invoices);
+
+interface TCustomer {
+  id: string;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TItem {
+  id: string;
+  sku: string;
+  name: string;
+  desc: string;
+  price: number;
+  quantity?: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TInvoice {
+  id: string;
+  number: string;
+  url: string;
+  customer: string;
+  date: Date;
+  dueDate: Date;
+  total: number;
+  invItems: TItem[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+---
+
+<Layout title="Pure Invoices">
+  <h1 class="font-semibold opacity-50">current: test-page</h1>
+  <main>
+    <div class="m-5 grid grid-cols-2 gap-5">
+      <!-- <Customer client:only="react" /> -->
+      <Item client:only="react" />
+      <Invoice client:only="react" />
+    </div>
+    <div class="grid grid-cols-3">
+      <div class="bg-slate-100 p-5">
+        <h3 class="mb-4 text-center font-semibold">customers</h3>
+        {
+          customers.map((customer: TCustomer) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">{customer.name}</h1>
+                  <p>{customer.id}</p>
+                  <p>{customer.address}</p>
+                  <p>{customer.email}</p>
+                  <p>{customer.phone}</p>
+                  <p>{customer.createdAt}</p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="bg-slate-200 p-5">
+        <h3 class="mb-4 text-center font-semibold">invoices</h3>
+        {
+          invoices.map((invoice: TInvoice) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">
+                    {invoice.id} -{" "}
+                    <span class="font-normal">{invoice.number}</span>
+                  </h1>
+                  <p>{invoice.url}</p>
+                  <p>{invoice.customer}</p>
+                  <p>{invoice.date}</p>
+                  <p>Due: {invoice.dueDate}</p>
+                  <ul>
+                    {invoice.invItems.map((invItem) => (
+                      <li>
+                        ${invItem.price} - {invItem.quantity}x {invItem.name}
+                      </li>
+                    ))}
+                  </ul>
+                  <p class="font-semibold">
+                    Total: ${invoice.total.toFixed(2)}
+                  </p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="bg-slate-300 p-5">
+        <h3 class="mb-4 text-center font-semibold">items</h3>
+        {
+          items.map((item: TItem) => (
+            <div>
+              <ul>
+                <li class="mb-6">
+                  <h1 class="font-bold">{item.name}</h1>
+                  <p>{item.id}</p>
+                  <p>{item.desc}</p>
+                  <p>${item.price.toFixed(2)}</p>
+                  <p>{item.sku}</p>
+                </li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,96 @@
+{
+  "navbar": [
+    {
+      "name": "Dashboard",
+      "url": "/",
+      "isDropdown": false
+    },
+    {
+      "name": "Estimates",
+      "url": null,
+      "isDropdown": true,
+      "menu": [
+        {
+          "name": "Add Estimate",
+          "url": "/estimates/add"
+        },
+        {
+          "name": "View Estimates",
+          "url": "/estimates/view"
+        }
+      ]
+    },
+    {
+      "name": "Invoices",
+      "url": null,
+      "isDropdown": true,
+      "menu": [
+        {
+          "name": "Add Invoice",
+          "url": "/invoices/add"
+        },
+        {
+          "name": "View Invoices",
+          "url": "/invoices/view"
+        }
+      ]
+    },
+    {
+      "name": "Clients",
+      "url": null,
+      "isDropdown": true,
+      "menu": [
+        {
+          "name": "Add Client",
+          "url": "/clients/add"
+        },
+        {
+          "name": "View Clients",
+          "url": "/clients/view"
+        }
+      ]
+    },
+    {
+      "name": "Items",
+      "url": null,
+      "isDropdown": true,
+      "menu": [
+        {
+          "name": "Add Item",
+          "url": "/items/add"
+        },
+        {
+          "name": "View Items",
+          "url": "/items/view"
+        }
+      ]
+    }
+  ],
+  "sidebar": [
+    {
+      "name": "Dashboard",
+      "icon": "home-2",
+      "url": "/"
+    },
+    {
+      "name": "New Estimate",
+      "icon": "file-invoice",
+      "url": "/add-estimate"
+    },
+    {
+      "name": "New Invoice",
+      "icon": "file-dollar",
+      "url": "/add-invoice"
+    },
+    {
+      "name": "Add Client",
+      "icon": "users-plus",
+      "url": "/clients/add"
+    },
+    {
+      "name": "Add Item",
+      "icon": "category-plus",
+      "url": "/add-item"
+    }
+  ]
+}

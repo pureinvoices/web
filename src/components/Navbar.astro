@@ -1,0 +1,36 @@
+---
+import Image from "astro/components/Image.astro";
+import menu from "../config/menu.json";
+import DropdownNav from "./DropdownNav";
+import type { TNavbarLink } from "../utils/types";
+
+const { navbar }: { navbar: TNavbarLink[] } = menu;
+---
+
+<header
+  class="sticky top-0 z-50 w-full border-b border-border/90 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+>
+  <div class="flex items-center gap-8 py-4">
+    <div>
+      <a href="/">
+        <Image src="/inline-black.png" alt="logo" width={180} height={180} />
+      </a>
+    </div>
+    <nav class="flex gap-3">
+      {
+        navbar.map((item) => {
+          return item.isDropdown ? (
+            <DropdownNav client:visible item={item} />
+          ) : (
+            <a
+              href={item.url}
+              class="text-foreground/60 transition-colors hover:text-foreground/80"
+            >
+              {item.name}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>
