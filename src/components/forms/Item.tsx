@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import type { TItemForm } from "./types";
 import { useForm } from "@tanstack/react-form";
+import { navigate } from "astro:transitions/client";
 import { itemSchema } from "./validation/itemSchema";
 import Input from "./elements/Input";
 import SubmitButton from "./elements/SubmitButton";
@@ -26,7 +27,7 @@ export default function Item(): ReactElement {
         const result = await response.json();
         console.log(result);
         form.reset();
-        // window.location.href = "/";
+        navigate("/items/view");
       } catch (error) {
         console.error("Failed to add item", error);
       }

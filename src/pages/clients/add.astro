@@ -1,7 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Customer from "@/components/forms/Customer";
 ---
 
 <Layout title="Pure Invoices">
   <h1 class="font-semibold opacity-50">current: add-client</h1>
+  <div class="mx-auto max-w-screen-md">
+    <Customer client:only="react" />
+  </div>
 </Layout>

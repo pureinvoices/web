@@ -1,7 +1,39 @@
 ---
+import { db, Customers } from "astro:db";
 import Layout from "@/layouts/Layout.astro";
+
+const customers = await db.select().from(Customers);
+
+interface TCustomer {
+  id: string;
+  name: string;
+  address: string;
+  unit: string;
+  email: string;
+  phone: string;
+  createdAt: Date;
+}
 ---
 
 <Layout title="Pure Invoices">
   <h1 class="font-semibold opacity-50">current: view-clients</h1>
+  <div class="bg-slate-100 p-5">
+    <h3 class="mb-4 text-center font-semibold">customers</h3>
+    {
+      customers.map((customer: TCustomer) => (
+        <div>
+          <ul>
+            <li class="mb-6">
+              <h1 class="font-bold">{customer.name}</h1>
+              <p>{customer.id}</p>
+              <p>{customer.address}</p>
+              <p>{customer.email}</p>
+              <p>{customer.phone}</p>
+              <p>{customer.createdAt}</p>
+            </li>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
 </Layout>

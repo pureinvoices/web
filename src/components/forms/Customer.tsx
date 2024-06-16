@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import type { TCustomerForm } from "./types";
 import { useForm } from "@tanstack/react-form";
+import { navigate } from "astro:transitions/client";
 import { customerSchema } from "./validation/customerSchema";
 import Input from "./elements/Input";
 import SubmitButton from "./elements/SubmitButton";
@@ -27,7 +28,7 @@ export default function Customer(): ReactElement {
         const result = await response.json();
         console.log(result);
         form.reset();
-        // window.location.href = "/";
+        navigate("/clients/view");
       } catch (error) {
         console.error("Failed to add customer", error);
       }
