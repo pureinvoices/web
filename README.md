@@ -4,7 +4,7 @@ Pure Invoices is designed to simplify your billing process. Simple, direct, and 
 
 ## MVP Features
 
-**1. User Authentication** 🛠️
+**1. User Authentication**
 
 - Sign up with email and password
 - Sign in with email and password
@@ -19,24 +19,27 @@ Pure Invoices is designed to simplify your billing process. Simple, direct, and 
 
 **3. Invoice Management**
 
-- Create new invoices
+- ~~Create new invoices~~ ✅
 - Edit existing invoices
 - Delete invoices
-- View list of all invoices
+- ~~View list of all invoices~~ ✅
 - Filter and search invoices
 
 **4. Client Management**
 
-- Add new clients
+- ~~Add new clients~~ ✅
 - Edit client information
 - Delete clients
-- View list of all clients
+- ~~View list of all clients~~ ✅
 - Filter and search clients
 
 **5. Invoice Details**
 
-- Add and edit line items
-- Calculate totals, taxes, and discounts
+- ~~Add items~~ ✅
+- Edit items
+- ~~Calculate totals~~ ✅
+- Calculate taxes
+- Calculate discounts
 - Set due dates and payment terms
 
 **6. Invoice Templates**
