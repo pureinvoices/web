@@ -1,6 +1,9 @@
 ---
 import { db, Customers, Items, Invoices } from "astro:db";
 import Layout from "../layouts/Layout.astro";
+import Customer from "@/components/forms/Customer";
+import Item from "@/components/forms/Item";
+import Invoice from "@/components/forms/Invoice";
 
 const customers = await db.select().from(Customers);
 const items = await db.select().from(Items);
@@ -42,6 +45,11 @@ interface TInvoice {
 
 <Layout title="Pure Invoices">
   <main>
+    <div class="m-5 grid grid-cols-2 gap-5">
+      <!-- <Customer client:only="react" /> -->
+      <Item client:only="react" />
+      <Invoice client:only="react" />
+    </div>
     <div class="grid grid-cols-3">
       <div class="bg-slate-100 p-5">
         <h3 class="mb-4 text-center font-semibold">customers</h3>
