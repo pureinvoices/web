@@ -53,7 +53,7 @@ export default async function () {
     {
       id: "SEED6cc5",
       number: "INV001",
-      url: "https://example.com/invoices/INV001",
+      url: "https://example.com/invoices/SEED6cc5",
       customer: "SEEDLQLjMH4g9SlHdziwrHPzRy4RJqTC",
       dueDate: new Date(Date.now() + 10 * 86400000),
       total: 148.0,
@@ -79,7 +79,7 @@ export default async function () {
     {
       id: "SEEDf748",
       number: "INV002",
-      url: "https://example.com/invoices/INV002",
+      url: "https://example.com/invoices/SEEDf748",
       customer: "SEED0lGzvC6ZC5wr24HZ74WmJK87agsQ",
       dueDate: new Date(Date.now() + 20 * 86400000),
       total: 239.0,

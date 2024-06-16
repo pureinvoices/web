@@ -1,6 +1,7 @@
 import { type ReactElement, useState, useEffect } from "react";
 import { initialItemState, type TInvoiceForm, type TItem } from "./types";
 import { useForm } from "@tanstack/react-form";
+import { navigate } from "astro:transitions/client";
 import { invoiceSchema } from "./validation/invoiceSchema";
 import Input from "./elements/Input";
 import SubmitButton from "./elements/SubmitButton";
@@ -43,7 +44,7 @@ export default function Invoice(): ReactElement {
         console.log(result);
         setItems([initialItemState]);
         form.reset();
-        // window.location.href = "/";
+        navigate("/invoices/view");
       } catch (error) {
         console.error("Failed to add invoice", error);
       }

@@ -41,7 +41,6 @@ export default function InvoiceItems({
           }
           return { ...item, [key]: value };
         }
-        console.log("item >> ", item);
         return item;
       }),
     );

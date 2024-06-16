@@ -1,7 +1,62 @@
 ---
+import { db, Invoices } from "astro:db";
 import Layout from "@/layouts/Layout.astro";
+
+const invoices = await db.select().from(Invoices);
+
+interface TItem {
+  id: string;
+  sku: string;
+  name: string;
+  desc: string;
+  price: number;
+  quantity?: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface TInvoice {
+  id: string;
+  number: string;
+  url: string;
+  customer: string;
+  date: Date;
+  dueDate: Date;
+  total: number;
+  invItems: TItem[];
+  createdAt: Date;
+  updatedAt: Date;
+}
 ---
 
 <Layout title="Pure Invoices">
   <h1 class="font-semibold opacity-50">current: view-invoices</h1>
+  <div class="bg-slate-100 p-5">
+    <h3 class="mb-4 text-center font-semibold">invoices</h3>
+    {
+      invoices.map((invoice: TInvoice) => (
+        <div>
+          <ul>
+            <li class="mb-6">
+              <h1 class="font-bold">
+                {invoice.id} - <span class="font-normal">{invoice.number}</span>
+              </h1>
+              <p>{invoice.url}</p>
+              <p>{invoice.customer}</p>
+              <p>{invoice.date}</p>
+              <p>Due: {invoice.dueDate}</p>
+              <ul>
+                {invoice.invItems.map((invItem) => (
+                  <li>
+                    ${invItem.price} - {invItem.quantity}x {invItem.name}
+                  </li>
+                ))}
+              </ul>
+              <p class="font-semibold">Total: ${invoice.total.toFixed(2)}</p>
+            </li>
+          </ul>
+        </div>
+      ))
+    }
+  </div>
 </Layout>
