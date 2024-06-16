@@ -1,0 +1,43 @@
+---
+import { ArrowBigLeftDash, Home } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Error: Not Found">
+  <section class="w-full">
+    <div class="flex h-[80vh] flex-col items-center justify-center gap-6">
+      <div class="text-center font-semibold">
+        <h1 class="mb-4 text-5xl">Error 404</h1>
+        <h2 class="text-2xl">Page Not Found</h2>
+      </div>
+      <div>
+        <ul class="flex gap-2">
+          {
+            Astro.request.headers.get("Referer") && (
+              <li>
+                <a
+                  href={Astro.request.headers.get("Referer")}
+                  class={buttonVariants({ variant: "outline" })}
+                >
+                  <span class="flex gap-1">
+                    <ArrowBigLeftDash size={22} />
+                    <span>Go Back</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+          <li>
+            <a href="/" class={buttonVariants({ variant: "outline" })}>
+              <span class="flex gap-1">
+                <Home size={16} />
+                <span>Dashboard</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
