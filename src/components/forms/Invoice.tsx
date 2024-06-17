@@ -6,17 +6,17 @@ import { invoiceSchema } from "./validation/invoiceSchema";
 import Input from "./elements/Input";
 import SubmitButton from "./elements/SubmitButton";
 import InvoiceItems from "./elements/InvoiceItems";
+import DatePicker from "./elements/DatePicker";
 
 export default function Invoice(): ReactElement {
   const [availableItems, setAvailableItems] = useState<Array<TItem>>([]);
   const [items, setItems] = useState<TItem[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [date, setDate] = useState<Date>();
 
   const form = useForm<TInvoiceForm>({
     defaultValues: {
       customer: "",
-      date: "",
-      dueDate: "",
       invItems: [],
     },
     onSubmit: async ({ value }) => {
@@ -24,6 +24,7 @@ export default function Invoice(): ReactElement {
       const invoiceData = {
         ...value,
         total,
+        dueDate: date ? date.toISOString() : "",
       };
 
       const formData = new FormData();
@@ -94,20 +95,9 @@ export default function Invoice(): ReactElement {
           label="Customer"
           placeholder="Customer ID"
         />
-        <Input
-          form={form}
-          name="date"
-          schema={invoiceSchema.date}
-          label="Date"
-          placeholder="Date"
-        />
-        <Input
-          form={form}
-          name="dueDate"
-          schema={invoiceSchema.dueDate}
-          label="Due Date"
-          placeholder="Due Date"
-        />
+        <div className="mb-3">
+          <DatePicker date={date} setDate={setDate} />
+        </div>
         <InvoiceItems
           items={items}
           setItems={setItems}

@@ -24,8 +24,6 @@ export interface TItem {
 
 export interface TInvoiceForm {
   customer: string;
-  date: string;
-  dueDate: string;
   invItems: Array<TItem>;
 }
 
